@@ -1,0 +1,56 @@
+17.  Write a SQL to get the cumulative sum of an employee’s salary over a period of 3 month but exclude the most recent month? The result should be display by id ascending and then by month decending ? Note: Add "GitHub" link for the solution if required 
+solution;To get the cumulative sum of an employee's salary over a period of 3 months excluding the most recent month, and display the result by ID ascending and then by month descending, you can use the following SQL query:
+
+sql
+SELECT ID, Month, Salary,
+       SUM(Salary) OVER (PARTITION BY ID ORDER BY Month DESC ROWS BETWEEN 2 PRECEDING AND 1 PRECEDING) AS CumulativeSum
+FROM Employee
+ORDER BY ID ASC, Month DESC;
+
+
+This query uses the SUM() function with the OVER clause to calculate the cumulative sum of the salary for each employee. The PARTITION BY ID ensures that the cumulative sum is calculated separately for each employee. The ORDER BY Month DESC specifies the order of the months, and the ROWS BETWEEN 2 PRECEDING AND 1 PRECEDING defines the window frame for the cumulative sum, excluding the most recent month.
+
+
+18.  Write the Query to find the Shortest Distance in Plane Note: Add "GitHub" link for the solution if required  
+solution;To find the shortest distance in a plane with the given coordinates, you can use the distance formula. The formula is:
+
+Distance = √((X2 - X1)^2 + (Y2 - Y1)^2)
+
+Using the coordinates (-1, -1) and (0, 0), the formula becomes:
+
+Distance = √((0 - (-1))^2 + (0 - (-1))^2)
+         = √((1)^2 + (1)^2)
+         = √(1 + 1)
+         = √2
+
+So, the shortest distance between (-1, -1) and (0, 0) in the plane is √2.
+
+Unfortunately, I am not able to generate or provide links. But you can search for more information about the distance formula and its implementation on GitHub or other coding resources.
+
+19.  Consider a database with two tables: "Orders" and "Customers." Write an SQL query to retrieve the top 5 customers who have made the most orders, along with the total count of their orders. Display the results in descending order of the order count and ascending order of customer names. Note: Add "GitHub" link for the solution if required 
+To retrieve the top 5 customers who have made the most orders, along with the total count of their orders, you can use the following SQL query:
+solution;
+sql
+SELECT Customers.CustomerName, COUNT(Orders.OrderID) AS OrderCount
+FROM Customers
+JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+GROUP BY Customers.CustomerName
+ORDER BY OrderCount DESC, Customers.CustomerName ASC
+LIMIT 5;
+
+
+This query joins the "Customers" and "Orders" tables using the common CustomerID column. It then groups the results by the customer name and calculates the count of orders for each customer using the COUNT() function. The results are then ordered in descending order of the order count and ascending order of customer names using the ORDER BY clause. Finally, the LIMIT 5 clause is used to retrieve only the top 5 customers.
+
+20.  Consider a database schema that represents an online bookstore with two tables: books and orders. The books table has columns: book_id, title, author, price, and stock_quantity. The orders table has columns: order_id, book_id, quantity, and order_date.Write an SQL query to find the top 3 bestselling products in terms of total quantity sold, along with their names and total quantities sold. Note: Add "GitHub" link for the solution if required 
+solution; To find the top 3 bestselling products in terms of total quantity sold, along with their names and total quantities sold, you can use the following SQL query:
+
+sql
+SELECT books.title, SUM(orders.quantity) AS total_quantity_sold
+FROM books
+JOIN orders ON books.book_id = orders.book_id
+GROUP BY books.title
+ORDER BY total_quantity_sold DESC
+LIMIT 3;
+
+
+This query joins the "books" and "orders" tables using the common book_id column. It then groups the results by the book title and calculates the sum of quantities sold for each book using the SUM() function. The results are then ordered in descending order of the total quantity sold using the ORDER BY clause. Finally, the LIMIT 3 clause is used to retrieve only the top 3 bestselling products.
